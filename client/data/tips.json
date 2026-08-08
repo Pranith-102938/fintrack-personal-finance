@@ -1,0 +1,128 @@
+{
+  "daily_tip": {
+    "id": "tip-daily-01",
+    "title": "The 24-Hour Impulse Control Rule",
+    "category": "saving",
+    "categoryLabel": "Daily Tip of the Day",
+    "icon": "⏳",
+    "badgeColor": "var(--accent-primary)",
+    "summary": "Wait 24 hours before making any non-essential purchase over $50.",
+    "content": "Before making an unplanned purchase over $50, force a mandatory 24-hour cooling period. Studies show that over 65% of impulse purchase urges fade within 24 hours. If you still feel it adds genuine long-term value tomorrow, go ahead — otherwise, transfer that amount directly into your high-yield savings account.",
+    "readTime": "2 min read",
+    "actionText": "Set Up Auto Savings",
+    "actionType": "navigate_budgets"
+  },
+  "categories": [
+    { "id": "all", "label": "All Advice" },
+    { "id": "budgeting", "label": "Budget Tips" },
+    { "id": "saving", "label": "Saving Tips" },
+    { "id": "investing", "label": "Investment Basics" },
+    { "id": "emergency", "label": "Emergency Fund Advice" }
+  ],
+  "tips": [
+    {
+      "id": "tip-b1",
+      "title": "Master the 50/30/20 Budgeting Framework",
+      "category": "budgeting",
+      "categoryLabel": "Budget Tips",
+      "icon": "📊",
+      "badgeColor": "var(--accent-primary)",
+      "summary": "Allocate 50% of income to Needs, 30% to Wants, and 20% to Savings.",
+      "content": "Divide your net post-tax income into three simple buckets: 50% for mandatory living costs (rent, groceries, utilities), 30% for discretionary personal wants (dining out, entertainment), and 20% dedicated to building wealth and paying down debt.",
+      "readTime": "3 min read",
+      "actionText": "Configure Budget Caps",
+      "actionType": "open_budget_modal"
+    },
+    {
+      "id": "tip-b2",
+      "title": "Zero-Based Budgeting Technique",
+      "category": "budgeting",
+      "categoryLabel": "Budget Tips",
+      "icon": "🎯",
+      "badgeColor": "var(--accent-primary)",
+      "summary": "Give every single dollar a job before the month starts.",
+      "content": "Zero-Based Budgeting means Income minus Expenses equals Zero. Every dollar is assigned to savings, debt payoff, bills, or investments before it arrives in your account, preventing mindless leaking of funds.",
+      "readTime": "4 min read",
+      "actionText": "Add Monthly Income",
+      "actionType": "open_txn_modal"
+    },
+    {
+      "id": "tip-s1",
+      "title": "Automate Your Savings on Payday",
+      "category": "saving",
+      "categoryLabel": "Saving Tips",
+      "icon": "🤖",
+      "badgeColor": "var(--accent-success)",
+      "summary": "Pay yourself first by scheduling automatic transfers the day you get paid.",
+      "content": "Don't save what is left after spending; spend what is left after saving. Set up recurring automated bank transfers from your checking account to your savings or investment account every payday.",
+      "readTime": "2 min read",
+      "actionText": "Track New Income",
+      "actionType": "open_txn_modal"
+    },
+    {
+      "id": "tip-s2",
+      "title": "Audit Recurring Subscriptions",
+      "category": "saving",
+      "categoryLabel": "Saving Tips",
+      "icon": "🔍",
+      "badgeColor": "var(--accent-success)",
+      "summary": "Cancel unused streaming services and recurring digital memberships.",
+      "content": "The average adult spends over $219/month on active subscriptions, and over 40% forget about at least one recurring membership. Perform a monthly audit of your bank statement and eliminate forgotten channels.",
+      "readTime": "3 min read",
+      "actionText": "Review Expense History",
+      "actionType": "navigate_expenses"
+    },
+    {
+      "id": "tip-i1",
+      "title": "The Power of Dollar-Cost Averaging (DCA)",
+      "category": "investing",
+      "categoryLabel": "Investment Basics",
+      "icon": "📈",
+      "badgeColor": "var(--accent-info)",
+      "summary": "Invest a fixed amount at regular intervals regardless of market highs or lows.",
+      "content": "Dollar-cost averaging removes emotional guesswork from investing. By consistently putting $100 or $500 into low-cost index funds every month, you automatically buy more shares when prices drop and fewer when prices rise.",
+      "readTime": "5 min read",
+      "actionText": "Explore Portfolio Tools",
+      "actionType": "info_toast"
+    },
+    {
+      "id": "tip-i2",
+      "title": "Low-Cost Index Funds vs Individual Stocks",
+      "category": "investing",
+      "categoryLabel": "Investment Basics",
+      "icon": "🏛️",
+      "badgeColor": "var(--accent-info)",
+      "summary": "Diversify instantly across hundreds of top companies with broad market index funds.",
+      "content": "Over 90% of active fund managers fail to beat the S&P 500 benchmark over a 15-year horizon. Low expense ratio index funds (like S&P 500 or Total Stock Market funds) provide automatic diversification with low fees.",
+      "readTime": "4 min read",
+      "actionText": "Read Guide",
+      "actionType": "info_toast"
+    },
+    {
+      "id": "tip-e1",
+      "title": "Build a 3-6 Month Emergency Runway",
+      "category": "emergency",
+      "categoryLabel": "Emergency Fund Advice",
+      "icon": "🛡️",
+      "badgeColor": "var(--accent-warning)",
+      "summary": "Keep essential living expenses liquid in a high-yield savings account.",
+      "content": "An emergency fund is your financial shield against job loss, medical expenses, or unexpected car repairs. Calculate your minimum monthly survival budget and build a liquid safety cushion in a High-Yield Savings Account (HYSA).",
+      "readTime": "4 min read",
+      "actionText": "Calculate Emergency Goal",
+      "actionType": "info_toast"
+    },
+    {
+      "id": "tip-e2",
+      "title": "High-Yield Savings Accounts (HYSA) Explained",
+      "category": "emergency",
+      "categoryLabel": "Emergency Fund Advice",
+      "icon": "🏦",
+      "badgeColor": "var(--accent-warning)",
+      "summary": "Earn 4-5% APY on your cash reserves instead of 0.01% at traditional banks.",
+      "content": "Traditional brick-and-mortar savings accounts pay a meager ~0.01% APY, allowing inflation to erode your cash. FDIC-insured HYSAs offer interest rates up to 500x higher while keeping funds 100% liquid.",
+      "readTime": "3 min read",
+      "actionText": "View Rates",
+      "actionType": "info_toast"
+    }
+  ]
+}

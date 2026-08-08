@@ -1,0 +1,254 @@
+/* ==========================================================================
+   PERSONAL FINANCE TRACKER - PAGE SPECIFIC LAYOUTS & VIEWS
+   ========================================================================== */
+
+/* 1. Dashboard Metric Cards Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem 1.35rem;
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.metric-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.metric-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
+.metric-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* 2. Charts Section Grid */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-container {
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.chart-svg {
+  width: 100%;
+  height: 240px;
+}
+
+/* 3. Home / Landing Page View */
+.hero-section {
+  text-align: center;
+  padding: 3.5rem 1rem;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.15rem;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  text-align: left;
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  background-color: var(--accent-info-bg);
+  color: var(--accent-info);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.85rem;
+}
+
+/* 4. Auth Views (Login & Register) */
+.auth-container {
+  max-width: 400px;
+  margin: 2.5rem auto;
+}
+
+.auth-card {
+  padding: 2rem;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.15rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* 5. Expense Filter Bar & Grid */
+.filter-bar {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.15rem;
+}
+
+.filter-group {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+/* 6. Budget Cards Grid */
+.budgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.15rem;
+}
+
+.budget-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.budget-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 0.65rem;
+  font-weight: 500;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
+/* 7. Financial Tips Feed */
+.tips-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.tip-card {
+  display: flex;
+  gap: 1.15rem;
+  align-items: flex-start;
+  border-left: 4px solid var(--accent-primary);
+}
+
+.tip-card.warning {
+  border-left-color: var(--accent-warning);
+}
+
+.tip-card.success {
+  border-left-color: var(--accent-success);
+}
+
+.tip-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 8. Error and 404 Pages */
+.error-page-container {
+  text-align: center;
+  padding: 3.5rem 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-code {
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: var(--accent-primary);
+  line-height: 1;
+  margin-bottom: 0.85rem;
+}

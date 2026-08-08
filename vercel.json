@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "name": "personal-finance-tracker-frontend",
+  "builds": [
+    {
+      "src": "client/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://personal-finance-tracker-api.onrender.com/api/$1"
+    },
+    {
+      "src": "/data/(.*)",
+      "dest": "/client/data/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/client/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/client/js/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/client/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/index.html"
+    }
+  ]
+}
