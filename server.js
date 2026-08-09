@@ -38,29 +38,40 @@ app.use(helmet({
 }));
 
 // ─── 3. CORS Configuration (Production & Development) ─────
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
-  : ['http://localhost:5000', 'http://127.0.0.1:5000', 'http://localhost:3000', 'https://fintrack-personal-finance.onrender.com'];
+const DEFAULT_ALLOWED_ORIGINS = [
+  'https://fintrack-personal-finance.onrender.com',
+  'http://localhost:5000',
+  'http://127.0.0.1:5000',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:5173',
+  'http://127.0.0.1:5173'
+];
+
+const envOrigins = (process.env.ALLOWED_ORIGINS && process.env.ALLOWED_ORIGINS !== '*')
+  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean)
+  : [];
+
+const allowedOrigins = Array.from(new Set([...DEFAULT_ALLOWED_ORIGINS, ...envOrigins]));
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, postman, same-origin) or if allowedOrigins includes '*'
-    if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (e.g. mobile apps, curl, Postman, same-origin)
+    if (!origin) {
       return callback(null, true);
     }
-    // Allow Render deployment subdomains (*.onrender.com)
-    if (origin.endsWith('.onrender.com') || allowedOrigins.some(ao => ao.includes('.onrender.com') && origin.endsWith('.onrender.com'))) {
+
+    // Explicit origin check against production frontend and local dev origins
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-    // Allow Vercel preview deployment subdomains if specified
-    if (origin.endsWith('.vercel.app') || allowedOrigins.some(ao => ao.includes('.vercel.app') && origin.endsWith('.vercel.app'))) {
-      return callback(null, true);
-    }
+
     return callback(new Error(`CORS policy violation: Origin '${origin}' is not allowed.`));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
 }));
 
 // ─── 4. Body Parsing & NoSQL Query Injection Sanitizer ──

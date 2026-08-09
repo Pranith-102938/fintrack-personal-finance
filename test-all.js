@@ -592,6 +592,71 @@ async function runTests() {
   assert('tips.js uses escapeHtml for tips grid and search query', tipsJsRes.body.includes('escapeHtml'));
   assert('home.js uses escapeHtml for recent activity', homeJsRes.body.includes('escapeHtml'));
 
+  // 🌐 10. CORS SECURITY & PREFLIGHT VERIFICATION
+  console.log('\n🌐 10. CORS SECURITY & PREFLIGHT VERIFICATION');
+
+  const preflightProd = await new Promise((resolve) => {
+    const req = http.request({
+      hostname: 'localhost',
+      port: 5001,
+      path: '/api/v1/transactions',
+      method: 'OPTIONS',
+      headers: {
+        'Origin': 'https://fintrack-personal-finance.onrender.com',
+        'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'Content-Type, Authorization'
+      }
+    }, (res) => {
+      resolve({ status: res.statusCode, headers: res.headers });
+    });
+    req.on('error', () => resolve({ status: 500, headers: {} }));
+    req.end();
+  });
+
+  assert('CORS OPTIONS preflight returns 200/204 for production origin', preflightProd.status === 200 || preflightProd.status === 204);
+  assert('CORS preflight reflects production origin', preflightProd.headers['access-control-allow-origin'] === 'https://fintrack-personal-finance.onrender.com');
+  assert('CORS preflight allows credentials', preflightProd.headers['access-control-allow-credentials'] === 'true');
+
+  const preflightLocal = await new Promise((resolve) => {
+    const req = http.request({
+      hostname: 'localhost',
+      port: 5001,
+      path: '/api/v1/auth/login',
+      method: 'OPTIONS',
+      headers: {
+        'Origin': 'http://localhost:5000',
+        'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'Content-Type'
+      }
+    }, (res) => {
+      resolve({ status: res.statusCode, headers: res.headers });
+    });
+    req.on('error', () => resolve({ status: 500, headers: {} }));
+    req.end();
+  });
+
+  assert('CORS OPTIONS preflight returns 200/204 for localhost origin', preflightLocal.status === 200 || preflightLocal.status === 204);
+  assert('CORS preflight reflects localhost origin', preflightLocal.headers['access-control-allow-origin'] === 'http://localhost:5000');
+
+  const preflightUnauthorized = await new Promise((resolve) => {
+    const req = http.request({
+      hostname: 'localhost',
+      port: 5001,
+      path: '/api/v1/transactions',
+      method: 'OPTIONS',
+      headers: {
+        'Origin': 'https://malicious-attacker.onrender.com',
+        'Access-Control-Request-Method': 'GET'
+      }
+    }, (res) => {
+      resolve({ status: res.statusCode, headers: res.headers });
+    });
+    req.on('error', () => resolve({ status: 500, headers: {} }));
+    req.end();
+  });
+
+  assert('CORS rejects unauthorized origin (no Access-Control-Allow-Origin header)', preflightUnauthorized.headers['access-control-allow-origin'] !== 'https://malicious-attacker.onrender.com');
+
   // ─── RESULTS ───────────────────────────────────
   console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   const total = testsPassed + testsFailed;
@@ -641,8 +706,34 @@ async function main() {
     crossOriginEmbedderPolicy: false,
   }));
 
-  // CORS
-  app.use(cors({ origin: true, credentials: true }));
+  // CORS (mirroring production server.js logic)
+  const DEFAULT_ALLOWED_ORIGINS = [
+    'https://fintrack-personal-finance.onrender.com',
+    'http://localhost:5000',
+    'http://127.0.0.1:5000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173'
+  ];
+
+  const envOrigins = (process.env.ALLOWED_ORIGINS && process.env.ALLOWED_ORIGINS !== '*')
+    ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean)
+    : [];
+
+  const allowedOrigins = Array.from(new Set([...DEFAULT_ALLOWED_ORIGINS, ...envOrigins]));
+
+  app.use(cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS policy violation: Origin '${origin}' is not allowed.`));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    optionsSuccessStatus: 200
+  }));
 
   // Body Parsing
   app.use(express.json({ limit: '1mb' }));
