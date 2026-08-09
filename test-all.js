@@ -520,6 +520,34 @@ async function runTests() {
   });
   assert('CSS files served correctly', cssRes.status === 200);
 
+  const compCssRes = await new Promise((resolve, reject) => {
+    http.get('http://localhost:5001/css/components.css', (res) => {
+      let data = '';
+      res.on('data', (d) => (data += d));
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    }).on('error', reject);
+  });
+  assert('components.css has mobile sidebar transform rule', compCssRes.body.includes('transform: translateX(-100%) !important'));
+  assert('components.css has pointer-events: none on btn-icon svg', compCssRes.body.includes('pointer-events: none'));
+
+  const appJsRes = await new Promise((resolve, reject) => {
+    http.get('http://localhost:5001/js/app.js', (res) => {
+      let data = '';
+      res.on('data', (d) => (data += d));
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    }).on('error', reject);
+  });
+  assert('app.js handles touchend and click for sidebar toggle', appJsRes.body.includes("sidebarToggleBtn.addEventListener('touchend', handleCloseSidebar)"));
+
+  const uiJsRes = await new Promise((resolve, reject) => {
+    http.get('http://localhost:5001/js/ui.js', (res) => {
+      let data = '';
+      res.on('data', (d) => (data += d));
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    }).on('error', reject);
+  });
+  assert('ui.js handles touch and click for mobile backdrop', uiJsRes.body.includes("backdrop.addEventListener('touchend', handleBackdropClose)"));
+
   // ─── RESULTS ───────────────────────────────────
   console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   const total = testsPassed + testsFailed;

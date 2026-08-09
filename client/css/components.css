@@ -38,6 +38,23 @@
   transition: transform var(--transition-normal), width var(--transition-normal);
 }
 
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%) !important;
+    box-shadow: none;
+  }
+  .sidebar.open {
+    transform: translateX(0) !important;
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@media (min-width: 1025px) {
+  .sidebar {
+    transform: none !important;
+  }
+}
+
 .sidebar-header {
   height: var(--topbar-height);
   display: flex;
@@ -233,6 +250,10 @@
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition-fast);
+}
+
+.btn-icon svg, .btn-icon path, .btn-icon line {
+  pointer-events: none;
 }
 
 .btn-icon:hover {
