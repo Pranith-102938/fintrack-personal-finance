@@ -87,17 +87,25 @@ window.Expenses = (function () {
       const colorVar = isIncome ? 'var(--accent-success)' : 'var(--accent-danger)';
       const badgeClass = isIncome ? 'badge-income' : 'badge-expense';
 
+      const esc = window.UI ? window.UI.escapeHtml : (s => s);
+      const safeId = esc(txn._id || '');
+      const safeDesc = txn.description ? esc(txn.description) : '—';
+      const safeCat = esc(txn.category || '');
+      const safeType = esc(txn.type || '');
+      const rawPay = PAYMENT_LABELS[txn.paymentMethod] || txn.paymentMethod || '';
+      const safePay = esc(rawPay);
+
       return `
-        <tr data-txn-id="${txn._id}">
+        <tr data-txn-id="${safeId}">
           <td>${formatDate(txn.date)}</td>
-          <td>${txn.description || '—'}</td>
-          <td>${txn.category}</td>
-          <td><span class="badge ${badgeClass}">${txn.type}</span></td>
-          <td>${PAYMENT_LABELS[txn.paymentMethod] || txn.paymentMethod}</td>
+          <td>${safeDesc}</td>
+          <td>${safeCat}</td>
+          <td><span class="badge ${badgeClass}">${safeType}</span></td>
+          <td>${safePay}</td>
           <td style="font-weight: 600; color: ${colorVar};">${sign}${formatCurrency(txn.amount)}</td>
           <td>
-            <button class="btn btn-secondary edit-btn" data-id="${txn._id}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Edit</button>
-            <button class="btn btn-danger delete-btn" data-id="${txn._id}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Delete</button>
+            <button class="btn btn-secondary edit-btn" data-id="${safeId}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Edit</button>
+            <button class="btn btn-danger delete-btn" data-id="${safeId}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Delete</button>
           </td>
         </tr>
       `;

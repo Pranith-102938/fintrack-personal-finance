@@ -156,11 +156,13 @@ window.Tips = (function () {
     const container = document.getElementById('tips-category-pills');
     if (!container) return;
 
+    const esc = window.UI ? window.UI.escapeHtml : (s => s);
+
     container.innerHTML = categories.map(cat => `
       <button class="btn ${cat.id === activeCategory ? 'btn-primary' : 'btn-secondary'} category-pill-btn" 
-              data-category="${cat.id}" 
+              data-category="${esc(cat.id)}" 
               style="padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 20px;">
-        ${cat.label}
+        ${esc(cat.label)}
       </button>
     `).join('');
   }
@@ -170,21 +172,23 @@ window.Tips = (function () {
     const container = document.getElementById('daily-tip-banner');
     if (!container || !daily) return;
 
+    const esc = window.UI ? window.UI.escapeHtml : (s => s);
+
     container.innerHTML = `
       <div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.12)); border: 1.5px solid var(--accent-primary); padding: 1.5rem;">
         <div style="display: flex; align-items: flex-start; gap: 1.25rem;">
           <div style="width: 52px; height: 52px; border-radius: 14px; background-color: var(--accent-primary-bg); color: var(--accent-primary); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; flex-shrink: 0;">
-            ${daily.icon || '💡'}
+            ${esc(daily.icon || '💡')}
           </div>
           <div style="flex: 1;">
             <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
-              <span class="badge badge-income" style="background: var(--accent-primary); color: #fff; font-size: 0.75rem;">${daily.categoryLabel || 'Daily Tip'}</span>
-              <span style="font-size: 0.78rem; color: var(--text-muted);">${daily.readTime}</span>
+              <span class="badge badge-income" style="background: var(--accent-primary); color: #fff; font-size: 0.75rem;">${esc(daily.categoryLabel || 'Daily Tip')}</span>
+              <span style="font-size: 0.78rem; color: var(--text-muted);">${esc(daily.readTime)}</span>
             </div>
-            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem;">${daily.title}</h2>
-            <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.5; margin-bottom: 1rem;">${daily.content}</p>
-            <button class="btn btn-primary tip-action-trigger" data-action="${daily.actionType}" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">
-              ${daily.actionText} →
+            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem;">${esc(daily.title)}</h2>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.5; margin-bottom: 1rem;">${esc(daily.content)}</p>
+            <button class="btn btn-primary tip-action-trigger" data-action="${esc(daily.actionType)}" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">
+              ${esc(daily.actionText)} →
             </button>
           </div>
         </div>
@@ -197,10 +201,13 @@ window.Tips = (function () {
     const container = document.getElementById('tips-cards-grid');
     if (!container) return;
 
+    const esc = window.UI ? window.UI.escapeHtml : (s => s);
+
     if (!tips || tips.length === 0) {
+      const safeQuery = esc(searchQuery);
       container.innerHTML = `
         <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-muted);">
-          🔍 No financial tips found matching "${searchQuery}". Try selecting another category or refining your search.
+          🔍 No financial tips found matching "${safeQuery}". Try selecting another category or refining your search.
         </div>
       `;
       return;
@@ -211,24 +218,24 @@ window.Tips = (function () {
         <div>
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
             <div style="width: 40px; height: 40px; border-radius: 10px; background-color: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 1.35rem;">
-              ${tip.icon}
+              ${esc(tip.icon)}
             </div>
-            <span class="badge" style="background: ${tip.badgeColor}; color: #fff; font-size: 0.72rem;">${tip.categoryLabel}</span>
+            <span class="badge" style="background: ${esc(tip.badgeColor)}; color: #fff; font-size: 0.72rem;">${esc(tip.categoryLabel)}</span>
           </div>
 
-          <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.35;">${tip.title}</h3>
-          <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; margin-bottom: 0.75rem;">${tip.summary}</p>
+          <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.35;">${esc(tip.title)}</h3>
+          <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; margin-bottom: 0.75rem;">${esc(tip.summary)}</p>
           
           <details style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
             <summary style="cursor: pointer; color: var(--accent-primary); font-weight: 500; margin-bottom: 0.35rem;">Read Detailed Guidance</summary>
-            <p style="padding-top: 0.5rem; border-top: 1px dashed var(--border-color); line-height: 1.5;">${tip.content}</p>
+            <p style="padding-top: 0.5rem; border-top: 1px dashed var(--border-color); line-height: 1.5;">${esc(tip.content)}</p>
           </details>
         </div>
 
         <div style="margin-top: 1.25rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
-          <span style="font-size: 0.75rem; color: var(--text-muted);">${tip.readTime}</span>
-          <button class="btn btn-secondary tip-action-trigger" data-action="${tip.actionType}" style="padding: 0.3rem 0.65rem; font-size: 0.78rem;">
-            ${tip.actionText}
+          <span style="font-size: 0.75rem; color: var(--text-muted);">${esc(tip.readTime)}</span>
+          <button class="btn btn-secondary tip-action-trigger" data-action="${esc(tip.actionType)}" style="padding: 0.3rem 0.65rem; font-size: 0.78rem;">
+            ${esc(tip.actionText)}
           </button>
         </div>
       </div>

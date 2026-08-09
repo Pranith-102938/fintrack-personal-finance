@@ -72,18 +72,21 @@ window.Auth = (function () {
     const userProfile = document.getElementById('user-header-profile');
     if (userProfile) {
       if (loggedIn && user) {
-        const initials = user.name
+        const initials = (user.name || '')
           .split(' ')
           .map(word => word[0])
           .join('')
           .toUpperCase()
           .substring(0, 2);
 
+        const safeName = window.UI ? window.UI.escapeHtml(user.name) : user.name;
+        const safeInitials = window.UI ? window.UI.escapeHtml(initials) : initials;
+
         userProfile.innerHTML = `
           <div style="width: 36px; height: 36px; border-radius: 50%; background-color: var(--accent-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem;">
-            ${initials}
+            ${safeInitials}
           </div>
-          <span style="font-weight: 500; font-size: 0.9rem; color: var(--text-primary);">${user.name}</span>
+          <span style="font-weight: 500; font-size: 0.9rem; color: var(--text-primary);">${safeName}</span>
           <button id="header-logout-btn" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Logout</button>
         `;
 

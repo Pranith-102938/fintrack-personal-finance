@@ -2,6 +2,17 @@
 window.UI = (function () {
   let pendingConfirmCallback = null;
 
+  // ─── 0. Shared HTML Escaping Utility (XSS Hardening) ───
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   // ─── 1. Toast Notification System ────────────────
   function showToast(message, type = 'info', duration = 3500) {
     let container = document.getElementById('toast-container');
@@ -19,9 +30,11 @@ window.UI = (function () {
     if (type === 'danger' || type === 'error') icon = '❌';
     if (type === 'warning') icon = '⚠️';
 
+    const safeMsg = escapeHtml(message);
+
     toast.innerHTML = `
       <span class="toast-icon">${icon}</span>
-      <span class="toast-message">${message}</span>
+      <span class="toast-message">${safeMsg}</span>
       <button class="toast-close" aria-label="Close">✕</button>
     `;
 
@@ -180,6 +193,7 @@ window.UI = (function () {
   }
 
   return {
+    escapeHtml,
     showToast,
     openModal,
     closeModal,

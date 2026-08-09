@@ -70,6 +70,10 @@ window.Home = (function () {
               ? new Date(txn.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
               : 'Recent';
 
+            const rawDesc = txn.description || txn.category || '';
+            const safeDesc = window.UI ? window.UI.escapeHtml(rawDesc) : rawDesc;
+            const safeCat = window.UI ? window.UI.escapeHtml(txn.category || '') : (txn.category || '');
+
             return `
               <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border-color);">
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -77,8 +81,8 @@ window.Home = (function () {
                     ${isExpense ? '💸' : '💰'}
                   </div>
                   <div>
-                    <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary);">${txn.description || txn.category}</div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted);">${txn.category} • ${dateStr}</div>
+                    <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary);">${safeDesc}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">${safeCat} • ${dateStr}</div>
                   </div>
                 </div>
                 <div style="font-weight: 700; font-size: 0.9rem; color: ${amtColor};">

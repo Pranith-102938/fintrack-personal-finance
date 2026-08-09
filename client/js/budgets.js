@@ -90,31 +90,39 @@ window.Budgets = (function () {
       return;
     }
 
-    grid.innerHTML = budgets.map(b => `
-      <div class="card" data-budget-id="${b._id}">
-        <div class="budget-card-header">
-          <h3>${b.category}</h3>
-          ${getStatusBadge(b.status)}
+    const esc = window.UI ? window.UI.escapeHtml : (s => s);
+
+    grid.innerHTML = budgets.map(b => {
+      const safeId = esc(b._id || '');
+      const safeCategory = esc(b.category || '');
+      const safeNotes = b.notes ? esc(b.notes) : '';
+
+      return `
+        <div class="card" data-budget-id="${safeId}">
+          <div class="budget-card-header">
+            <h3>${safeCategory}</h3>
+            ${getStatusBadge(b.status)}
+          </div>
+          <div class="progress-bar-bg" style="height: 10px; margin-bottom: 0.75rem;">
+            <div class="progress-bar-fill" style="width: ${Math.min(100, b.percentage)}%; background-color: ${getProgressColor(b.status)}; transition: width 0.4s ease;"></div>
+          </div>
+          <div class="budget-meta">
+            <span>Spent: ${formatCurrency(b.spent)}</span>
+            <span>Limit: ${formatCurrency(b.limit)}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">
+              ${b.percentage}% used · ${formatCurrency(b.remaining)} left
+            </span>
+          </div>
+          ${safeNotes ? `<div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic;">📝 ${safeNotes}</div>` : ''}
+          <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <button class="btn btn-secondary edit-budget-btn" data-id="${safeId}" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">Edit</button>
+            <button class="btn btn-danger delete-budget-btn" data-id="${safeId}" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">Delete</button>
+          </div>
         </div>
-        <div class="progress-bar-bg" style="height: 10px; margin-bottom: 0.75rem;">
-          <div class="progress-bar-fill" style="width: ${Math.min(100, b.percentage)}%; background-color: ${getProgressColor(b.status)}; transition: width 0.4s ease;"></div>
-        </div>
-        <div class="budget-meta">
-          <span>Spent: ${formatCurrency(b.spent)}</span>
-          <span>Limit: ${formatCurrency(b.limit)}</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
-          <span style="font-size: 0.8rem; color: var(--text-muted);">
-            ${b.percentage}% used · ${formatCurrency(b.remaining)} left
-          </span>
-        </div>
-        ${b.notes ? `<div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic;">📝 ${b.notes}</div>` : ''}
-        <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: flex-end;">
-          <button class="btn btn-secondary edit-budget-btn" data-id="${b._id}" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">Edit</button>
-          <button class="btn btn-danger delete-budget-btn" data-id="${b._id}" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">Delete</button>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   // ─── Render Summary Bar ────────────────────────
@@ -148,6 +156,8 @@ window.Budgets = (function () {
         return;
       }
 
+      const esc = window.UI ? window.UI.escapeHtml : (s => s);
+
       container.style.display = '';
       container.innerHTML = result.data.map(alert => {
         const bgColor = alert.status === 'exceeded'
@@ -157,9 +167,11 @@ window.Budgets = (function () {
           ? 'var(--accent-danger)'
           : 'var(--accent-warning)';
 
+        const safeMsg = esc(alert.message || '');
+
         return `
           <div class="card" style="padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-left: 4px solid ${borderColor}; background: ${bgColor};">
-            <div style="font-size: 0.85rem; font-weight: 500; color: var(--text-primary);">${alert.message}</div>
+            <div style="font-size: 0.85rem; font-weight: 500; color: var(--text-primary);">${safeMsg}</div>
           </div>
         `;
       }).join('');

@@ -33,14 +33,18 @@ window.Profile = (function () {
       .substring(0, 2);
 
     if (avatarBox) {
+      const esc = window.UI ? window.UI.escapeHtml : (s => s);
+      const safeAvatar = esc(user.avatar || '');
+      const safeInitials = esc(initials);
+
       if (user.avatar && user.avatar.length <= 4) {
         // Emoji avatar
-        avatarBox.innerHTML = `<span style="font-size: 2.5rem;">${user.avatar}</span>`;
-      } else if (user.avatar && user.avatar.startsWith('http')) {
-        // Image URL avatar
-        avatarBox.innerHTML = `<img src="${user.avatar}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+        avatarBox.innerHTML = `<span style="font-size: 2.5rem;">${safeAvatar}</span>`;
+      } else if (user.avatar && /^https?:\/\//i.test(user.avatar)) {
+        // Image URL avatar (enforce http/https protocol and escape attribute)
+        avatarBox.innerHTML = `<img src="${safeAvatar}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
       } else {
-        avatarBox.innerHTML = `<span style="font-weight: 700; font-size: 2rem;">${initials}</span>`;
+        avatarBox.innerHTML = `<span style="font-weight: 700; font-size: 2rem;">${safeInitials}</span>`;
       }
     }
 

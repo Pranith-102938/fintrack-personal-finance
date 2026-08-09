@@ -560,6 +560,38 @@ async function runTests() {
   assert('home.js contains loadHomeOverview', homeJsRes.body.includes('loadHomeOverview'));
   assert('index.html contains logged-in Home Launchpad', htmlRes.body.includes('home-logged-in-overview'));
 
+  // 🛡️ 9. XSS SECURITY & DOM SANITIZATION
+  console.log('\n🛡️ 9. XSS SECURITY & DOM SANITIZATION');
+  const expJsRes = await new Promise((resolve, reject) => {
+    http.get('http://localhost:5001/js/expenses.js', (res) => {
+      let data = '';
+      res.on('data', (d) => (data += d));
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    }).on('error', reject);
+  });
+
+  const budJsRes = await new Promise((resolve, reject) => {
+    http.get('http://localhost:5001/js/budgets.js', (res) => {
+      let data = '';
+      res.on('data', (d) => (data += d));
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    }).on('error', reject);
+  });
+
+  const tipsJsRes = await new Promise((resolve, reject) => {
+    http.get('http://localhost:5001/js/tips.js', (res) => {
+      let data = '';
+      res.on('data', (d) => (data += d));
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    }).on('error', reject);
+  });
+
+  assert('ui.js exports escapeHtml utility', uiJsRes.body.includes('escapeHtml'));
+  assert('expenses.js uses escapeHtml for table rows', expJsRes.body.includes('escapeHtml'));
+  assert('budgets.js uses escapeHtml for budget cards', budJsRes.body.includes('escapeHtml'));
+  assert('tips.js uses escapeHtml for tips grid and search query', tipsJsRes.body.includes('escapeHtml'));
+  assert('home.js uses escapeHtml for recent activity', homeJsRes.body.includes('escapeHtml'));
+
   // ─── RESULTS ───────────────────────────────────
   console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   const total = testsPassed + testsFailed;
