@@ -40,16 +40,20 @@ app.use(helmet({
 // ─── 3. CORS Configuration (Production & Development) ─────
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
-  : ['http://localhost:5000', 'http://127.0.0.1:5000', 'http://localhost:3000'];
+  : ['http://localhost:5000', 'http://127.0.0.1:5000', 'http://localhost:3000', 'https://fintrack-personal-finance.onrender.com'];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, postman) or if allowedOrigins includes '*'
+    // Allow requests with no origin (like mobile apps, curl, postman, same-origin) or if allowedOrigins includes '*'
     if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+    // Allow Render deployment subdomains (*.onrender.com)
+    if (origin.endsWith('.onrender.com') || allowedOrigins.some(ao => ao.includes('.onrender.com') && origin.endsWith('.onrender.com'))) {
+      return callback(null, true);
+    }
     // Allow Vercel preview deployment subdomains if specified
-    if (allowedOrigins.some(ao => ao.includes('.vercel.app') && origin.endsWith('.vercel.app'))) {
+    if (origin.endsWith('.vercel.app') || allowedOrigins.some(ao => ao.includes('.vercel.app') && origin.endsWith('.vercel.app'))) {
       return callback(null, true);
     }
     return callback(new Error(`CORS policy violation: Origin '${origin}' is not allowed.`));
