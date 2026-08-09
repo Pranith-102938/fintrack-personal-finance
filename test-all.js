@@ -549,6 +549,17 @@ async function runTests() {
   });
   assert('ui.js attaches click listener to mobile backdrop', uiJsRes.body.includes("backdrop.addEventListener('click'"));
 
+  const homeJsRes = await new Promise((resolve, reject) => {
+    http.get('http://localhost:5001/js/home.js', (res) => {
+      let data = '';
+      res.on('data', (d) => (data += d));
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    }).on('error', reject);
+  });
+  assert('home.js served correctly', homeJsRes.status === 200);
+  assert('home.js contains loadHomeOverview', homeJsRes.body.includes('loadHomeOverview'));
+  assert('index.html contains logged-in Home Launchpad', htmlRes.body.includes('home-logged-in-overview'));
+
   // ─── RESULTS ───────────────────────────────────
   console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   const total = testsPassed + testsFailed;

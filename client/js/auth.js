@@ -5,8 +5,8 @@ window.Auth = (function () {
 
   // Public views that don't require authentication
   const PUBLIC_VIEWS = ['home', 'login', 'register'];
-  // Views that logged-in users should not see (redirect to dashboard)
-  const GUEST_ONLY_VIEWS = ['login', 'register', 'home'];
+  // Views that logged-in users should not see (redirect to home)
+  const GUEST_ONLY_VIEWS = ['login', 'register'];
 
   // Store session data in localStorage
   function saveSession(token, user) {
@@ -44,6 +44,17 @@ window.Auth = (function () {
   function updateUI() {
     const user = getUser();
     const loggedIn = isLoggedIn();
+
+    // Toggle Public Landing vs Logged-In Home Overview
+    const publicLanding = document.getElementById('home-public-landing');
+    const loggedInOverview = document.getElementById('home-logged-in-overview');
+
+    if (publicLanding) {
+      publicLanding.style.display = loggedIn ? 'none' : 'block';
+    }
+    if (loggedInOverview) {
+      loggedInOverview.style.display = loggedIn ? 'block' : 'none';
+    }
 
     // Sidebar visibility
     const sidebar = document.getElementById('sidebar');

@@ -131,7 +131,9 @@
 
         <!-- 1. HOME / LANDING VIEW -->
         <section id="view-home" class="page-view">
-          <div class="hero-section">
+          
+          <!-- A. Public Landing Page (Logged-Out Guests) -->
+          <div id="home-public-landing" class="hero-section">
             <h1 class="hero-title">Take Control of Your Personal Finances</h1>
             <p class="hero-subtitle">Track income, monitor daily expenses, build monthly category budgets, and unlock actionable AI-powered financial tips.</p>
             <div class="hero-actions">
@@ -156,6 +158,138 @@
                 <p style="color: var(--text-secondary); margin-top: 0.5rem;">Heuristic advice engine analyzes your 50/30/20 savings ratio and flags high-expense spikes.</p>
               </div>
             </div>
+          </div>
+
+          <!-- B. Personal Finance Launchpad (Logged-In Users) -->
+          <div id="home-logged-in-overview" style="display: none;">
+            
+            <!-- Welcome Header Banner -->
+            <div class="card" style="padding: 1.75rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%); border-left: 4px solid var(--accent-primary);">
+              <h2 style="font-size: 1.45rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem;">
+                Welcome back, <span id="home-user-name">Friend</span>! 👋
+              </h2>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; margin: 0;">
+                Take control of your finances, one transaction at a time.
+              </p>
+            </div>
+
+            <!-- Quick Snapshot Metrics (3 Small Cards) -->
+            <div class="metrics-grid" style="margin-bottom: 1.5rem;">
+              <div class="card metric-card">
+                <div class="metric-header">
+                  <span class="metric-title">Net Balance</span>
+                  <div class="metric-icon-bg" style="background: var(--accent-info-bg); color: var(--accent-info);">⚖️</div>
+                </div>
+                <div class="metric-value" id="home-net-balance">$0.00</div>
+                <div class="metric-footer" style="font-size: 0.8rem; color: var(--text-muted);">Total Income − Expenses</div>
+              </div>
+
+              <div class="card metric-card">
+                <div class="metric-header">
+                  <span class="metric-title">This Month's Savings</span>
+                  <div class="metric-icon-bg" style="background: var(--accent-success-bg); color: var(--accent-success);">💵</div>
+                </div>
+                <div class="metric-value" id="home-savings-amount">$0.00</div>
+                <div class="metric-footer" style="font-size: 0.8rem; color: var(--text-muted);">Net savings retained</div>
+              </div>
+
+              <div class="card metric-card">
+                <div class="metric-header">
+                  <span class="metric-title">Total Transactions</span>
+                  <div class="metric-icon-bg" style="background: var(--accent-warning-bg); color: var(--accent-warning);">📝</div>
+                </div>
+                <div class="metric-value" id="home-txns-count">0</div>
+                <div class="metric-footer" style="font-size: 0.8rem; color: var(--text-muted);">Recorded transactions</div>
+              </div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.85rem;">Quick Actions</h3>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                
+                <div class="card home-action-card" style="padding: 1.1rem; cursor: pointer; transition: transform var(--transition-fast);" onclick="window.Home.openIncomeModal()">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--accent-success-bg); color: var(--accent-success); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700;">+</div>
+                    <div>
+                      <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-primary);">Add Income</div>
+                      <div style="font-size: 0.8rem; color: var(--text-secondary);">Record new earnings</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card home-action-card" style="padding: 1.1rem; cursor: pointer; transition: transform var(--transition-fast);" onclick="window.Home.openExpenseModal()">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700;">−</div>
+                    <div>
+                      <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-primary);">Add Expense</div>
+                      <div style="font-size: 0.8rem; color: var(--text-secondary);">Log daily spending</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card home-action-card" style="padding: 1.1rem; cursor: pointer; transition: transform var(--transition-fast);" onclick="window.Router.navigateTo('budgets')">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--accent-warning-bg); color: var(--accent-warning); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">🎯</div>
+                    <div>
+                      <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-primary);">Set Budget</div>
+                      <div style="font-size: 0.8rem; color: var(--text-secondary);">Manage monthly caps</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card home-action-card" style="padding: 1.1rem; cursor: pointer; transition: transform var(--transition-fast);" onclick="window.Router.navigateTo('reports')">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--accent-info-bg); color: var(--accent-info); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">📊</div>
+                    <div>
+                      <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-primary);">View Reports</div>
+                      <div style="font-size: 0.8rem; color: var(--text-secondary);">Export & analyze data</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Two-Column Layout: Recent Activity & Tip Spotlight / Detailed Dashboard CTA -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.5rem;">
+              
+              <!-- Left Column: Recent Activity Feed -->
+              <div class="card" style="padding: 1.25rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                  <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 0;">Recent Activity</h3>
+                  <button onclick="window.Router.navigateTo('expenses')" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">View All</button>
+                </div>
+                <div id="home-recent-activity">
+                  <div style="text-align: center; padding: 1.5rem; color: var(--text-muted);">Loading recent activity...</div>
+                </div>
+              </div>
+
+              <!-- Right Column: Financial Tip Spotlight & Detailed Dashboard Banner -->
+              <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                
+                <!-- Financial Tip Spotlight Card -->
+                <div class="card" style="padding: 1.25rem; background: var(--bg-secondary); border-top: 3px solid var(--accent-warning);">
+                  <div id="home-featured-tip-cat" style="font-size: 0.8rem; font-weight: 600; color: var(--accent-warning); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                    💡 Financial Tip Spotlight
+                  </div>
+                  <p id="home-featured-tip-text" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1rem;">
+                    Aim to save at least 20% of your net income using the 50/30/20 budget rule.
+                  </p>
+                  <button onclick="window.Router.navigateTo('tips')" class="btn btn-secondary" style="width: 100%; padding: 0.45rem; font-size: 0.85rem;">View More Tips</button>
+                </div>
+
+                <!-- Banner to Detailed Dashboard -->
+                <div class="card" style="padding: 1.25rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); text-align: center;">
+                  <h4 style="font-weight: 600; font-size: 1rem; color: var(--text-primary); margin-bottom: 0.35rem;">Detailed Analytics & Charts</h4>
+                  <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.4;">Explore monthly trend graphs, category breakdown charts, and average daily spending metrics.</p>
+                  <button onclick="window.Router.navigateTo('dashboard')" class="btn btn-primary" style="width: 100%; padding: 0.6rem 1rem; font-size: 0.9rem;">View Detailed Dashboard →</button>
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
         </section>
 
@@ -872,6 +1006,7 @@
   <script src="js/tips.js"></script>
   <script src="js/profile.js"></script>
   <script src="js/reports.js"></script>
+  <script src="js/home.js"></script>
   <script src="js/router.js"></script>
   <script src="js/app.js"></script>
 </body>

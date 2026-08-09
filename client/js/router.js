@@ -54,6 +54,12 @@ window.Router = (function () {
 
     // ─── View-specific data loading ──────────────
     if (window.Auth && window.Auth.isLoggedIn()) {
+      if (target === 'home') {
+        if (window.Home) {
+          window.Home.loadHomeOverview();
+        }
+      }
+
       if (target === 'dashboard') {
         if (window.Dashboard) {
           window.Dashboard.loadDashboard();
