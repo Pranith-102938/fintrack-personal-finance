@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await window.Auth.login(email, password);
         window.UI.hideLoader();
         window.UI.showToast(result.message || 'Welcome back!', 'success');
-        window.Router.navigateTo('dashboard');
+        window.Router.navigateTo('home');
       } catch (error) {
         window.UI.hideLoader();
         window.UI.showToast(error.message || 'Login failed. Please try again.', 'danger');
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await window.Auth.register(name, email, password);
         window.UI.hideLoader();
         window.UI.showToast(result.message || `Welcome, ${name}!`, 'success');
-        window.Router.navigateTo('dashboard');
+        window.Router.navigateTo('home');
       } catch (error) {
         window.UI.hideLoader();
         window.UI.showToast(error.message || 'Registration failed. Please try again.', 'danger');

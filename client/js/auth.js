@@ -50,10 +50,10 @@ window.Auth = (function () {
     const loggedInOverview = document.getElementById('home-logged-in-overview');
 
     if (publicLanding) {
-      publicLanding.style.display = loggedIn ? 'none' : 'block';
+      publicLanding.style.setProperty('display', loggedIn ? 'none' : 'block', 'important');
     }
     if (loggedInOverview) {
-      loggedInOverview.style.display = loggedIn ? 'block' : 'none';
+      loggedInOverview.style.setProperty('display', loggedIn ? 'block' : 'none', 'important');
     }
 
     // Sidebar visibility

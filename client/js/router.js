@@ -109,7 +109,7 @@ window.Router = (function () {
     });
 
     // Initial Route Check — respect auth state
-    const initialHash = window.location.hash.substring(1) || 'dashboard';
+    const initialHash = window.location.hash.substring(1) || 'home';
     navigateTo(initialHash);
   }
 
