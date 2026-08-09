@@ -529,6 +529,7 @@ async function runTests() {
   });
   assert('components.css has mobile sidebar transform rule', compCssRes.body.includes('transform: translateX(-100%) !important'));
   assert('components.css has pointer-events: none on btn-icon svg', compCssRes.body.includes('pointer-events: none'));
+  assert('components.css has touch-action: manipulation on btn-icon', compCssRes.body.includes('touch-action: manipulation'));
 
   const appJsRes = await new Promise((resolve, reject) => {
     http.get('http://localhost:5001/js/app.js', (res) => {
@@ -537,7 +538,7 @@ async function runTests() {
       res.on('end', () => resolve({ status: res.statusCode, body: data }));
     }).on('error', reject);
   });
-  assert('app.js handles touchend and click for sidebar toggle', appJsRes.body.includes("sidebarToggleBtn.addEventListener('touchend', handleCloseSidebar)"));
+  assert('app.js attaches click listener to sidebarToggleBtn', appJsRes.body.includes("sidebarToggleBtn.addEventListener('click'"));
 
   const uiJsRes = await new Promise((resolve, reject) => {
     http.get('http://localhost:5001/js/ui.js', (res) => {
@@ -546,7 +547,7 @@ async function runTests() {
       res.on('end', () => resolve({ status: res.statusCode, body: data }));
     }).on('error', reject);
   });
-  assert('ui.js handles touch and click for mobile backdrop', uiJsRes.body.includes("backdrop.addEventListener('touchend', handleBackdropClose)"));
+  assert('ui.js attaches click listener to mobile backdrop', uiJsRes.body.includes("backdrop.addEventListener('click'"));
 
   // ─── RESULTS ───────────────────────────────────
   console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');

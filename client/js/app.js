@@ -52,38 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // ──────────────────────────────────────────────
   const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  
-  const handleCloseSidebar = (e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    window.UI.closeMobileSidebar();
-  };
-
-  const handleToggleSidebar = (e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    window.UI.toggleSidebar();
-  };
 
   if (sidebarToggleBtn) {
-    sidebarToggleBtn.addEventListener('click', handleCloseSidebar);
-    sidebarToggleBtn.addEventListener('touchend', handleCloseSidebar);
+    sidebarToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.UI.closeMobileSidebar();
+    });
   }
 
   if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', handleToggleSidebar);
-    mobileMenuBtn.addEventListener('touchend', handleToggleSidebar);
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.UI.toggleSidebar();
+    });
   }
 
   // ──────────────────────────────────────────────
   // 2. Navigation Item Clicks
   // ──────────────────────────────────────────────
   document.querySelectorAll('.nav-item').forEach(item => {
-    const handleNavItemClick = (e) => {
+    item.addEventListener('click', (e) => {
       const view = e.currentTarget.dataset.view;
       if (view && window.Router) {
         window.Router.navigateTo(view);
@@ -91,11 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (window.UI && typeof window.UI.closeMobileSidebar === 'function') {
         window.UI.closeMobileSidebar();
       }
-    };
-    item.addEventListener('click', handleNavItemClick);
-    item.addEventListener('touchend', (e) => {
-      e.preventDefault();
-      handleNavItemClick(e);
     });
   });
 

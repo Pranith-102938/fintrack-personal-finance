@@ -127,17 +127,10 @@ window.UI = (function () {
       backdrop = document.createElement('div');
       backdrop.id = 'mobile-sidebar-backdrop';
       document.body.appendChild(backdrop);
-
-      const handleBackdropClose = (e) => {
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
+      backdrop.addEventListener('click', (e) => {
+        if (e) e.stopPropagation();
         closeMobileSidebar();
-      };
-
-      backdrop.addEventListener('click', handleBackdropClose);
-      backdrop.addEventListener('touchend', handleBackdropClose);
+      });
     }
 
     if (sidebar) {
