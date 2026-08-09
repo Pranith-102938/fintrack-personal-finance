@@ -139,6 +139,7 @@ window.UI = (function () {
         closeMobileSidebar();
       } else {
         sidebar.classList.add('open');
+        sidebar.style.transform = '';
         if (backdrop) backdrop.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
@@ -150,6 +151,11 @@ window.UI = (function () {
     const backdrop = document.getElementById('mobile-sidebar-backdrop');
     if (sidebar) {
       sidebar.classList.remove('open');
+      if (window.innerWidth <= 1024) {
+        sidebar.style.transform = 'translateX(-100%)';
+      } else {
+        sidebar.style.transform = '';
+      }
     }
     if (backdrop) {
       backdrop.classList.remove('active');
