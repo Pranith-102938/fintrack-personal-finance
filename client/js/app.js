@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ──────────────────────────────────────────────
-  // 2. Navigation Item Clicks
+  // 2. Navigation Item & Action Card Keyboard Controls
   // ──────────────────────────────────────────────
   document.querySelectorAll('.nav-item').forEach(item => {
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'button');
     item.addEventListener('click', (e) => {
       const view = e.currentTarget.dataset.view;
       if (view && window.Router) {
@@ -80,6 +82,35 @@ document.addEventListener('DOMContentLoaded', () => {
         window.UI.closeMobileSidebar();
       }
     });
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
+      }
+    });
+  });
+
+  document.querySelectorAll('.home-action-card').forEach(card => {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  // Global Escape key listener to dismiss open modals
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const activeModals = document.querySelectorAll('.modal-backdrop.active');
+      activeModals.forEach(m => {
+        if (window.UI && typeof window.UI.closeModal === 'function') {
+          window.UI.closeModal(m.id);
+        }
+      });
+    }
   });
 
   // ──────────────────────────────────────────────

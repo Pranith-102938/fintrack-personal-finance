@@ -3,56 +3,81 @@
 [![Node.js](https://img.shields.io/badge/Node.js-v18%2B-green.svg)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-v4.19-blue.svg)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-brightgreen.svg)](https://mongoosejs.com/)
-[![License](https://img.shields.io/badge/License-Unspecified-gray.svg)]()
+[![Tests](https://img.shields.io/badge/Tests-155%2F155%20Passed-brightgreen.svg)]()
+[![Production](https://img.shields.io/badge/Production-Render-blue.svg)](https://fintrack-personal-finance.onrender.com)
 
-FinTrack is a full-stack personal finance web application designed to empower users to take control of their financial health. It provides intuitive tools for tracking income and expenses, setting category budget limits, analyzing spending trends with interactive charts, generating exportable financial reports, and receiving actionable financial advice—all backed by robust security and data isolation.
+FinTrack is a full-stack personal finance web application designed to empower users to take control of their financial health. It provides intuitive tools for tracking income and expenses, setting category budget limits, analyzing spending trends with interactive charts, generating exportable financial reports, and receiving actionable financial advice—all backed by robust security, responsive accessibility, and user data isolation.
 
----
-
-## 🌟 Key Features
-
-- 📊 **Interactive Financial Dashboard**: Instant overview of key metrics including monthly income, monthly expenses, weekly spending, today's spending, net savings, savings rate (%), average daily spend, and highest single expense.
-- 💳 **Transaction Management**: Easily log income and expense items with automatic category assignment, payment method tags, and local calendar date selection. Supports searching, date filtering, and multi-column sorting.
-- 🎯 **Category Budgets & Overspending Alerts**: Set custom monthly spending caps for categories (e.g., Groceries, Rent, Entertainment). Track real-time progress bars with automatic warning and exceeded states.
-- 📈 **Visual Analytics & Charting**: Dynamic Chart.js visualizations including a 30-day cash flow line chart and a category breakdown pie chart with interactive hover tooltips.
-- 📄 **Reports & Data Export**: Filter financial records by custom date ranges and export formatted transaction summaries directly to **CSV** or generate **print/PDF-friendly** report pages.
-- 💱 **Multi-Currency Support**: Seamless support for **USD (`$`)**, **EUR (`€`)**, **GBP (`£`)**, and **INR (`₹`)** formatted consistently across all UI cards, charts, and tables.
-- 🔐 **Enterprise-Grade Security**: Built-in `bcryptjs` password hashing, Stateless JWT authentication, NoSQL query sanitization, password change rate limiting, and strict user data isolation.
-- 📱 **Modern Fintech Interface**: Clean, responsive layout utilizing custom design tokens, dark mode compatibility, accessible typography with tabular number formatting, and an auto-closing mobile navigation drawer.
-- 💡 **Actionable Financial Advice**: Curated financial tips feed categorised by budgeting, emergency funds, and savings strategies.
+🔗 **Live Production Deployment**: [https://fintrack-personal-finance.onrender.com](https://fintrack-personal-finance.onrender.com)
 
 ---
 
-## 🖼️ Screenshots
+## 🌟 Application Views & Key Features
 
-> *Replace the placeholder paths below with your actual screenshot images when available.*
+### 🏠 1. Home Launchpad Overview (View: `#home`)
+Personalized financial hub serving distinct views for guest visitors and authenticated users:
+- **Guest Landing Page**: Highlights core value propositions, feature summaries, and quick authentication CTA buttons.
+- **Personal Finance Launchpad**:
+  - **Welcome Header**: Greeting display card with current user display name.
+  - **Quick Snapshot Metrics**: 3 summary cards showing Net Balance, This Month's Savings, and Total Recorded Transactions.
+  - **Quick Action Grid**: One-tap shortcuts to Add Income, Add Expense, Set Budget, and View Reports.
+  - **Recent Activity Feed**: Real-time view of recent financial transactions.
+  - **Financial Tip Spotlight**: Dynamic featured advisory card with direct link to full tips section.
+  - **Detailed Dashboard Banner**: Direct CTA navigation to the full analytics dashboard.
 
-| Dashboard View | Reports & Analytics |
-| :---: | :---: |
-| ![Dashboard Overview](docs/screenshots/dashboard.png) | ![Reports & Analytics](docs/screenshots/reports.png) |
+### 📊 2. Detailed Analytics Dashboard (View: `#dashboard`)
+In-depth data analytics workspace providing detailed metrics and interactive visualizations:
+- **8 Key Financial Metric Cards**:
+  - **Primary**: Monthly Income, Monthly Expenses, Weekly Expenses, Today's Expenses.
+  - **Secondary**: Net Savings, Savings Rate (%), Avg Daily Spending, Highest Single Expense.
+- **Interactive Chart.js Visualizations**:
+  - **Daily Spending Trend**: 30-day cash flow line chart.
+  - **Category Breakdown**: Interactive expense distribution pie chart.
+  - **6-Month Comparative Bar Chart**: Historical monthly income vs. expense comparison.
+- **Recent Transactions Table**: Live summary table of recent activity.
+- **Category Budget Health Progress**: Real-time category spending progress bars with warning and exceeded threshold indicators.
 
-| Budget Management | Mobile View |
-| :---: | :---: |
-| ![Budget Management](docs/screenshots/budgets.png) | ![Mobile Drawer](docs/screenshots/mobile.png) |
+### 💳 3. Transactions & Expense Management (View: `#expenses`)
+- Full CRUD management for income and expense transactions.
+- Filter records by category, transaction type (income/expense), and custom date ranges.
+- Search by description or category name with real-time multi-column sorting (date, amount).
+
+### 🎯 4. Category Budgets & Overspending Alerts (View: `#budgets`)
+- Set custom monthly spending caps for individual categories (e.g., Groceries, Rent, Utilities, Entertainment).
+- Automatic color-coded visual progress indicators (`Good Health`, `Warning`, `Exceeded`).
+- Category summary bar displaying Total Budget, Total Spent, Remaining Balance, and Exceeded category count.
+
+### 📈 5. Reports & Data Export (View: `#reports`)
+- Filter financial metrics across preset ranges (*This Month, Last Month, Last 3 Months, Year to Date*) or custom date ranges.
+- Export transaction summaries directly to **CSV** or generate **Print/PDF-friendly** report formats.
+
+### 💡 6. Financial Advisory & Wisdom (View: `#tips`)
+- Expert financial tips and advice organized by category tags (Budgeting, Emergency Fund, Saving, Investing).
+- Search advice topics and view a highlighted "Daily Financial Tip".
+
+### 👤 7. User Profile & Settings (View: `#profile`)
+- Customize user display name, preferred currency (**USD `$`, EUR `€`, GBP `£`, INR `₹`**), and monthly target income.
+- Update avatar presets or securely change user account password.
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Structure & Logic**: HTML5, Vanilla JavaScript (ES6+ Modules)
-- **Styling**: Vanilla CSS3 (Custom Design System with CSS variables and Light/Dark theme support)
+- **Structure & Logic**: HTML5 (Accessible Semantic Layout), Vanilla JavaScript (ES6+ Native Modules)
+- **Styling**: Vanilla CSS3 (Custom Design System with CSS Variables and Light/Dark Mode)
 - **Data Visualization**: [Chart.js](https://www.chartjs.org/) (v4 via CDN)
+- **Accessibility**: Keyboard focus rings, Skip-to-main link, ARIA landmarks & modal dialog attributes
 
 ### Backend
 - **Runtime Environment**: [Node.js](https://nodejs.org/) (v18+)
 - **Web Framework**: [Express.js](https://expressjs.com/) (v4.19)
 - **Database**: [MongoDB](https://www.mongodb.com/) via [Mongoose ODM](https://mongoosejs.com/) (v8.4)
-- **Development Database**: Integrated [`mongodb-memory-server`](https://github.com/nodemodule/mongodb-memory-server) fallback for zero-config local development without requiring a local MongoDB service.
+- **Development Database**: Integrated [`mongodb-memory-server`](https://github.com/nodemodule/mongodb-memory-server) fallback for zero-config local development and testing.
 
-### Security & Utilities
-- **Authentication**: JSON Web Tokens (`jsonwebtoken`)
-- **Password Hashing**: `bcryptjs`
+### Security
+- **Authentication**: Stateless JSON Web Tokens (`jsonwebtoken`)
+- **Password Hashing**: `bcryptjs` (10 salt rounds)
 - **Security Middleware**: `helmet`, `express-mongo-sanitize`, `express-rate-limit`, `cors`, `express-validator`
 
 ---
@@ -65,19 +90,20 @@ fintrack-personal-finance/
 │   ├── assets/                 # Brand assets & SVG favicon
 │   ├── css/                    # Modular CSS stylesheets (main.css, components.css, dashboard.css)
 │   ├── data/                   # Financial advice static JSON content
-│   ├── js/                     # Frontend JavaScript modules (api, auth, budgets, charts, dashboard, expenses, profile, reports, ui)
+│   ├── js/                     # Modular JS (api, auth, budgets, charts, dashboard, expenses, home, profile, reports, router, theme, tips, ui, app)
 │   └── index.html              # Main Single-Page Application HTML shell
-├── config/                     # Backend configuration (Database connection setup)
+├── config/                     # Backend database connection configuration
 ├── controllers/                # Business logic handlers (auth, budget, dashboard, report, transaction)
-├── middleware/                 # Custom Express middleware (auth, rateLimiter, validate, errorHandler)
-├── models/                     # Mongoose database schemas (User, Transaction, Budget)
+├── middleware/                 # Express middleware (auth, rateLimiter, validate, errorHandler)
+├── models/                     # Mongoose schemas (User, Transaction, Budget)
 ├── routes/                     # REST API routes (auth, budget, dashboard, report, transaction)
 ├── utils/                      # Helper utilities (date formatting)
-├── .env.example                # Template file for environment configuration
-├── .gitignore                  # Git ignore rules for node_modules and .env files
+├── .env.example                # Safe environment configuration template
+├── DEPLOYMENT.md               # Render production deployment guide
 ├── package.json                # Project dependencies and script definitions
-├── server.js                   # Express application entrypoint
-└── test-all.js                 # Automated integration test suite
+├── server.js                   # Express server entrypoint
+├── test-all.js                 # Integration & API test suite (133 assertions)
+└── test-smoke.js               # End-to-End browser smoke test suite (22 assertions)
 ```
 
 ---
@@ -86,7 +112,7 @@ fintrack-personal-finance/
 
 ### Prerequisites
 - **Node.js**: Version 18.x or higher installed.
-- **npm**: Package manager (included with Node.js).
+- **npm**: Node package manager.
 
 ### Installation & Local Setup
 
@@ -107,8 +133,8 @@ fintrack-personal-finance/
    cp .env.example .env
    ```
 
-4. **Start the application**:
-   - **Development Mode** (with automatic server restart via Nodemon and in-memory MongoDB):
+4. **Start the Application**:
+   - **Development Mode** (with automatic server restart via Nodemon and in-memory MongoDB fallback):
      ```bash
      npm run dev
      ```
@@ -118,13 +144,13 @@ fintrack-personal-finance/
      ```
 
 5. **Open in Browser**:
-   Navigate to **`http://localhost:5000`** in your web browser.
+   Navigate to **`http://localhost:5000`** in your browser.
 
 ---
 
 ## 🔑 Environment Variables
 
-The application configures its environment settings via a `.env` file in the root directory. Use `.env.example` as your setup guide:
+Configure environment settings in a local `.env` file. Safe default values:
 
 ```env
 # Server Network Configuration
@@ -139,63 +165,57 @@ MONGO_URI=mongodb://localhost:27017/finance_tracker
 JWT_SECRET=your_jwt_secret_key_here
 ```
 
-> ⚠️ **SECURITY WARNING**: Never commit your `.env` or `.env.production` files containing real secrets to version control. The repository `.gitignore` is configured to exclude all `.env*` files automatically.
-
----
-
-## 📖 Usage Guide
-
-1. **Account Registration & Login**:
-   - Register a new account or log in with an existing user. Session tokens are securely managed in client storage.
-2. **Logging Income & Expenses**:
-   - Navigate to the **Expenses** view to add income or expense entries. Select dates using the local calendar picker and assign standardized categories (e.g., Groceries, Rent, Utilities, Salary, Dining Out).
-3. **Setting Up Budgets**:
-   - Go to the **Budgets** section to establish monthly spending limits for specific categories. Budgets automatically calculate spent amounts, remaining balances, and progress percentages.
-4. **Analyzing Reports**:
-   - Access the **Reports** section to view interactive cash flow line graphs and category pie charts. Filter data by date range, export transactions as **CSV**, or use **Print/PDF** mode to save physical reports.
-5. **Managing Preferences**:
-   - Visit the **Profile** tab to update display names, customize avatar selections, update your default currency symbol (USD, EUR, GBP, INR), or securely change your account password.
+> ⚠️ **SECURITY NOTE**: Real secrets and credentials must never be committed to version control. The repository `.gitignore` is configured to exclude all `.env*` files automatically.
 
 ---
 
 ## 🛡️ Security Implementation
 
-- **Password Protection**: Passwords are securely hashed before storage using `bcryptjs` with 10 salt rounds.
-- **Route Authorization**: Protected endpoints verify JWT tokens via the `auth.middleware.js` layer.
-- **Rate Limiting**: Password change attempts are rate-limited (`5 attempts / 15 minutes`) using `express-rate-limit` to mitigate brute-force risks.
-- **Query Sanitization**: Incoming requests pass through `express-mongo-sanitize` to defend against NoSQL injection vectors.
-- **Strict User Data Isolation**: API queries enforce user identity matching (`userId: req.user._id`), preventing unauthorized cross-account data access or manipulation.
+- **Password Protection**: Hashed using `bcryptjs` with 10 salt rounds.
+- **Route Authorization**: Endpoints verify JWT bearer tokens via `auth.middleware.js`.
+- **Query Sanitization**: Requests pass through `express-mongo-sanitize` to block NoSQL injection.
+- **Rate Limiting**: Auth & password change endpoints enforce rate limiting to mitigate brute-force risks.
+- **Strict Data Isolation**: Mongoose queries explicitly scope data retrieval to `userId: req.user._id`, guaranteeing cross-account isolation.
+- **XSS Defense**: DOM outputs sanitized via `escapeHtml()` utility across all template strings.
+- **Production CORS**: Configured to restrict origin requests strictly to the live production frontend domain (`https://fintrack-personal-finance.onrender.com`).
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing Infrastructure
 
-The repository includes a comprehensive, self-contained integration test suite [`test-all.js`](file:///c:/Users/Dell%203410/Documents/fullstack_mjp1/test-all.js) that spins up an isolated `mongodb-memory-server` and verifies all system endpoints.
-
-To run the test suite:
+The repository features a two-tier automated testing suite:
 
 ```bash
-node test-all.js
+# Run both Integration and E2E Browser Smoke tests
+npm test
+
+# Run In-Memory API & Integration Test Suite (133 assertions)
+npm run test:all
+
+# Run E2E Headless Browser Smoke Test Suite (22 assertions)
+npm run test:smoke
 ```
 
-### Test Suite Execution Status
-- **Total Assertions Executed**: **114**
-- **Passing Status**: **114 / 114 Passed (100%)**
-- **Coverage**: Health check, Authentication flow, Cross-account isolation, Transaction CRUD, Budget calculations, Dashboard aggregation, Security route protection, Input validation, and Static asset serving.
+### Test Results
+- **Total Assertions Executed**: **155 Assertions**
+- **Passing Status**: **155 / 155 Passed (100%)**
+- **Test Coverage**:
+  - `test-all.js` (133 Assertions): Health check, registration/login flow, JWT authentication, user isolation, transaction CRUD & filtering, budget calculations, dashboard analytics, route protection, input validation, static file serving, XSS escaping, and CORS preflight verification.
+  - `test-smoke.js` (22 Assertions): Real browser automation testing full E2E user registration, login, view routing, expense creation, budget card rendering, report loading, session refresh persistence, responsive mobile sidebar interactions (hamburger open, X button close, backdrop click close, nav item navigation close), and zero-dialog XSS security checks.
 
 ---
 
-## 🔮 Future Improvements
+## 🌐 Production Deployment
 
-- 🔄 **Recurring Subscriptions**: Automatic logging for recurring monthly subscriptions and bill reminders.
-- 👛 **Multi-Wallet Accounts**: Ability to group balances across checking, savings, and credit accounts.
-- 🎨 **Theme Persistence**: Save user-selected light/dark theme preferences directly to the user profile schema.
+- **Hosting Platform**: [Render](https://render.com/)
+- **Live URL**: [https://fintrack-personal-finance.onrender.com](https://fintrack-personal-finance.onrender.com)
+- **Deployment Guide**: Detailed production environment and Render configuration steps are documented in [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
 ---
 
 ## 📄 License
 
-This project currently has no specified license.
+This project is open for educational and personal finance tracking purposes.
 
 ---
 

@@ -135,6 +135,7 @@ window.UI = (function () {
   function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     let backdrop = document.getElementById('mobile-sidebar-backdrop');
+    const menuBtn = document.getElementById('mobile-menu-btn');
 
     if (!backdrop) {
       backdrop = document.createElement('div');
@@ -153,6 +154,7 @@ window.UI = (function () {
       } else {
         sidebar.classList.add('open');
         sidebar.style.transform = '';
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
         if (backdrop) backdrop.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
@@ -162,6 +164,7 @@ window.UI = (function () {
   function closeMobileSidebar() {
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('mobile-sidebar-backdrop');
+    const menuBtn = document.getElementById('mobile-menu-btn');
     if (sidebar) {
       sidebar.classList.remove('open');
       if (window.innerWidth <= 1024) {
@@ -169,6 +172,9 @@ window.UI = (function () {
       } else {
         sidebar.style.transform = '';
       }
+    }
+    if (menuBtn) {
+      menuBtn.setAttribute('aria-expanded', 'false');
     }
     if (backdrop) {
       backdrop.classList.remove('active');

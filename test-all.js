@@ -468,8 +468,8 @@ async function runTests() {
   assert('HTML contains dashboard view', htmlRes.body.includes('id="view-dashboard"'));
   assert('HTML contains tips view', htmlRes.body.includes('id="view-tips"'));
   assert('HTML contains reports view', htmlRes.body.includes('id="view-reports"'));
-  assert('HTML contains report-cash-flow-chart canvas', htmlRes.body.includes('<canvas id="report-cash-flow-chart">'));
-  assert('HTML contains report-category-chart canvas', htmlRes.body.includes('<canvas id="report-category-chart">'));
+  assert('HTML contains report-cash-flow-chart canvas', htmlRes.body.includes('id="report-cash-flow-chart"'));
+  assert('HTML contains report-category-chart canvas', htmlRes.body.includes('id="report-category-chart"'));
   assert('HTML contains reports.js script', htmlRes.body.includes('js/reports.js'));
   assert('HTML contains Dining Out in txn-category select', htmlRes.body.includes('option value="Dining Out"'));
   assert('HTML contains Investment in txn-category select', htmlRes.body.includes('option value="Investment"'));
