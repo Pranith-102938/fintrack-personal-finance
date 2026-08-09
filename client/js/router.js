@@ -48,8 +48,13 @@ window.Router = (function () {
     // Update Page Header Title
     const titleElement = document.getElementById('page-title');
     if (titleElement) {
-      const formattedTitle = target.charAt(0).toUpperCase() + target.slice(1);
-      titleElement.textContent = formattedTitle === 'Tips' ? 'Financial Tips' : formattedTitle;
+      if (target === 'expenses') {
+        titleElement.textContent = 'Transactions';
+      } else if (target === 'tips') {
+        titleElement.textContent = 'Financial Tips';
+      } else {
+        titleElement.textContent = target.charAt(0).toUpperCase() + target.slice(1);
+      }
     }
 
     // ─── View-specific data loading ──────────────
