@@ -54,10 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   
   if (sidebarToggleBtn) {
-    sidebarToggleBtn.addEventListener('click', () => window.UI.toggleSidebar());
+    sidebarToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.UI.closeMobileSidebar();
+    });
   }
   if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => window.UI.toggleSidebar());
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.UI.toggleSidebar();
+    });
   }
 
   // ──────────────────────────────────────────────

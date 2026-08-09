@@ -127,17 +127,17 @@ window.UI = (function () {
       backdrop = document.createElement('div');
       backdrop.id = 'mobile-sidebar-backdrop';
       document.body.appendChild(backdrop);
-      backdrop.addEventListener('click', () => toggleSidebar());
+      backdrop.addEventListener('click', () => closeMobileSidebar());
     }
 
     if (sidebar) {
       const isOpen = sidebar.classList.contains('open');
       if (isOpen) {
-        sidebar.classList.remove('open');
-        backdrop.classList.remove('active');
+        closeMobileSidebar();
       } else {
         sidebar.classList.add('open');
-        backdrop.classList.add('active');
+        if (backdrop) backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
       }
     }
   }
@@ -145,12 +145,13 @@ window.UI = (function () {
   function closeMobileSidebar() {
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('mobile-sidebar-backdrop');
-    if (sidebar && sidebar.classList.contains('open')) {
+    if (sidebar) {
       sidebar.classList.remove('open');
     }
-    if (backdrop && backdrop.classList.contains('active')) {
+    if (backdrop) {
       backdrop.classList.remove('active');
     }
+    document.body.style.overflow = '';
   }
 
   // ─── 6. Centralized Currency Symbol Resolver ──────
